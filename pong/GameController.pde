@@ -1,8 +1,12 @@
 public class GameController {
   private Game game;
   private Tutorial tutorial = new Tutorial();
-  private float playerSpeed = 10;
+  
   private boolean hasGameStarted = false;
+
+  private final SoundFile scoredSound = new SoundFile(pong.this, "scored-sound.wav");
+  private final float playerSpeed = 10;
+  private final float ballSpeed = 10;
 
   public GameController(Game game) {
     this.game = game;
@@ -10,8 +14,8 @@ public class GameController {
   }
 
   public void setRandomSpeeds() {
-    game.setSpeedX(1);//(random(0, 1) < 0.5 ? -1 : 1) * random(7, 9);
-    game.setSpeedY(0);//(random(0, 1) < 0.5 ? -1 : 1) * random(1, 4);
+    game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * random(QUARTER_PI / 2, QUARTER_PI));
+    game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * random(QUARTER_PI / 2, QUARTER_PI));
   }
 
   public void startGame() {
@@ -34,9 +38,9 @@ public class GameController {
     }
   }
 
-  private void restartGame() {
+  private void newPoint() {
     delay(1000);
-    game.resetBoardPositions();
+    game.resetBoard();
     setRandomSpeeds();
   }
 
@@ -51,11 +55,12 @@ public class GameController {
 
     if (game.hasPlayerOneScored()) {
       game.increasePlayerOneCounter();
-      restartGame();
+      scoredSound.play();
+      newPoint();
     } else if (game.hasPlayerTwoScored()) {
       game.increasePlayerTwoCounter();
-      game.resetBoardPositions();
-      restartGame();
+      scoredSound.play();
+      newPoint();
     }
 
     game.draw();

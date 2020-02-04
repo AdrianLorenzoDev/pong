@@ -4,6 +4,7 @@ public class Game implements Drawable {
 
     private float dX;
     private float dY;
+    private float ballSpeed = 10;
 
     private Ball ball;
     private Paddle playerOne;
@@ -13,23 +14,27 @@ public class Game implements Drawable {
     private final float paddleOffset = 20;
     private final int width = int(getRelativeToCanvasWidth(1));
     private final int height = int(getRelativeToCanvasHeight(1));
+    private final SoundFile paddleCollisionSound = new SoundFile(pong.this, "paddle-collision-sound.wav");
+    private final SoundFile sideHitSound = new SoundFile(pong.this, "side-hit-sound.wav");
 
     public Game() {
         ball = new Ball();
         playerOne = new Paddle();     
         playerTwo = new Paddle();
-        resetBoardPositions();
+        resetBoard();
     }
 
-    public void setSpeedX(float speed) {
-        this.dX = speed;
+    public void setDeltaX(float dX) {
+        this.dX = dX * ballSpeed;
     }
 
-    public void setSpeedY(float speed) {
-        this.dY = speed;
+    public void setDeltaY(float dY) {
+        this.dY = dY * ballSpeed;
     }
 
-    public void resetBoardPositions() {
+    public void resetBoard() {
+        ballSpeed = 10;
+
         ball.setX(getRelativeToCanvasWidth(0.5));
         ball.setY(getRelativeToCanvasHeight(0.5));
 
@@ -73,12 +78,14 @@ public class Game implements Drawable {
         if (ball.getX() < 0 
             || ball.getX() > width) {
             dX = -dX;
+            sideHitSound.play();
             return;
         }
 
         if (ball.getY() < 0 
             || ball.getY() > height) {
             dY = -dY;
+            sideHitSound.play();
             return;
         }
 
@@ -88,8 +95,12 @@ public class Game implements Drawable {
                 && playerOneBallDistance <= 0
                 && ball.getY() > playerOne.getY() 
                 && ball.getY() < playerOne.getY() + playerOne.getHeight()) {
-                dX = -dX;
-                dY = -dY;
+                float offset = (ball.getY() + ball.getRadius()*2 - playerOne.getY()) / playerOne.getHeight();
+                float rad =  PI / 4 * offset - PI / 8;
+                setDeltaY(sin(rad));
+                setDeltaX(cos(rad));
+                ballSpeed += 0.2;
+                paddleCollisionSound.play();
             	return;
             }
         } else {
@@ -98,8 +109,12 @@ public class Game implements Drawable {
                 && playerTwoBallDistance <= 0
                 && ball.getY() > playerTwo.getY() 
                 && ball.getY() < playerTwo.getY() + playerTwo.getHeight()) {
-                dX = -dX;
-                dY = -dY;
+                float offset = (ball.getY() + ball.getRadius()*2 - playerTwo.getY()) / playerTwo.getHeight();
+                float rad =  PI / 4 * offset - PI / 8;
+                setDeltaY(sin(rad));
+                setDeltaX(-cos(rad));
+                ballSpeed += 0.2;
+                paddleCollisionSound.play();
             	return;
             }
         }

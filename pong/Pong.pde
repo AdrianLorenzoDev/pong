@@ -1,5 +1,8 @@
 import processing.sound.*;
 
+String title = "Pong!";
+
+// GameController
 private GameController controller;
 
 // Key pressed registers
@@ -14,6 +17,7 @@ public void settings(){
 }
 
 public void setup() {
+	setTitle(title);
 	noStroke();
 	controller = new GameController(new Game());
 }
