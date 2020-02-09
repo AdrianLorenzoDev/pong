@@ -1,12 +1,10 @@
 public class GameController {
   private Game game;
   private Tutorial tutorial = new Tutorial();
-  
   private boolean hasGameStarted = false;
 
   private final SoundFile scoredSound = new SoundFile(pong.this, "scored-sound.wav");
   private final float playerSpeed = 10;
-  private final float ballSpeed = 10;
 
   public GameController(Game game) {
     this.game = game;
@@ -14,8 +12,8 @@ public class GameController {
   }
 
   public void setRandomSpeeds() {
-    game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * random(QUARTER_PI / 2, QUARTER_PI));
-    game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * random(QUARTER_PI / 2, QUARTER_PI));
+    game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * sin(random(0, PI / 3)));
+    game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * cos(random(0, PI / 3)));
   }
 
   public void startGame() {
@@ -25,7 +23,7 @@ public class GameController {
   private void movePlayerOne() {
     if (isWPressed) {
       game.movePlayerOne(-playerSpeed);
-    } else if(isSPressed) {
+    } else if (isSPressed) {
       game.movePlayerOne(playerSpeed);
     }
   }
@@ -33,7 +31,7 @@ public class GameController {
   private void movePlayerTwo() {
     if (isUpPressed) {
       game.movePlayerTwo(-playerSpeed);
-    } else if(isDownPressed) {
+    } else if (isDownPressed) {
       game.movePlayerTwo(playerSpeed);
     }
   }
@@ -42,6 +40,12 @@ public class GameController {
     delay(1000);
     game.resetBoard();
     setRandomSpeeds();
+  }
+
+  public void checkIfGameStarted(){
+    if (isEnterPressed) {
+      hasGameStarted = true;
+    }
   }
 
   public void showTutorial() {
@@ -68,6 +72,7 @@ public class GameController {
 
   public void run() {
     if (!hasGameStarted) {
+      checkIfGameStarted();
       showTutorial();
     } else {
       runGame();
