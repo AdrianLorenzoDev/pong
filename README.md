@@ -18,6 +18,7 @@ Pong like game using [Processing](https://processing.org).
     * [Arquitectura](#architecture)
     * [Cálculo del deplazamiento aleatorio inicial](#random-initial-position)
     * [Colisión bola - pala](#ball-paddle-collision)
+* [Herramientas y recursos utilizados](#tools-and-resources)
 * [Referencias](#references)
 
 ## Introducción <a id="introduction"></a>
@@ -86,9 +87,14 @@ Para el control del juego, se ha implementado la clase `GameController`. Esta **
 
 ### Cálculo del deplazamiento aleatorio inicial <a id="random-initial-position"></a>
 
-Para calcular el desplazamiento aleatorio inicial, **se hace uso de una estrategia de "lanzamiento de moneda"**: El programa obtendrá un número al azar entre el `0` y el `1`, y un número al azar entre `0` y `PI / 3` radianes, para cada componente.
+Para calcular el desplazamiento aleatorio inicial, **se hace uso de una estrategia de "lanzamiento de moneda"**: El programa obtendrá un número al azar entre el `0` y el `1`, y un número al azar entre `0` y `PI / 4` radianes, para cada componente.
 
 Si **el valor entre cero y uno supera un umbral** (`0.5`), este número será multiplicado por uno, y por tanto, **la bola irá hacia arriba (componente `Y`) o hacia la derecha (componente `X`)**. Si no, **se multiplicará por -1, y por tanto, la bola irá hacia abajo (componente `Y`) o hacia la izquierda (componente `X`)**.
+
+```java
+game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * cos(random(0, PI / 4)));
+game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * sin(random(0, PI / 4)));
+```
 
 ### Colisión bola - pala <a id="ball-paddle-collision"></a>
 
@@ -118,6 +124,11 @@ if (ballSpeed < ballSpeedMax) {
   ballSpeed += ballSpeedInc;
 }
 ```
+
+## Herramientas y recursos utilizados <a id="tools-and-resources"></a>
+- [GifAnimation](https://github.com/extrapixel/gif-animation) - Librería usada para la creación de gifs a partir de los frames del juego.
+- [Processing Sound Library](https://processing.org/reference/libraries/sound/index.html) - Librería para la integración de sonido en los programas.
+- [Noise for fun](https://www.noiseforfun.com/) - Fuente de los efectos de sonido.
 
 ## Referencias <a id="references"></a>
 - [1] [Pong](https://es.wikipedia.org/wiki/Pong)
