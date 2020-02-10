@@ -12,8 +12,8 @@ public class GameController {
   }
 
   public void setRandomSpeeds() {
-    game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * sin(random(0, PI / 3)));
-    game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * cos(random(0, PI / 3)));
+    game.setDeltaX((random(0, 1) < 0.5 ? -1 : 1) * cos(random(0, PI / 4)));
+    game.setDeltaY((random(0, 1) < 0.5 ? -1 : 1) * sin(random(0, PI / 4)));
   }
 
   public void startGame() {
