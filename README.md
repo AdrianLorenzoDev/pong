@@ -5,8 +5,8 @@ Pong like game using [Processing](https://processing.org).
 > adrian.lorenzo101@alu.ulpgc.es
 
 <div align="center">
- <img src=images/demo.gif alt="Game demo" />
- Figura 1 - Demostración de la ejecución del juego
+ <img src=images/demo.gif alt="Game demo"></img>
+ <p>Figura 1 - Demostración de la ejecución del juego</p>
 </div>
 
 ***
