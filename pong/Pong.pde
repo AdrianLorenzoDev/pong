@@ -49,11 +49,11 @@ public void draw() {
 }
 
 void keyPressed() {
-  if (key == 'w') {
+  if (key == 'w' && key == 'W') {
   	isWPressed = true;
   }
 	
-  if (key == 's'){
+  if (key == 's' && key == 'S'){
   	isSPressed = true; 
   }
 	
@@ -73,11 +73,11 @@ void keyPressed() {
 }
 
 void keyReleased() {
-  if (key == 'w') {
+  if (key == 'w' && key == 'W') {
   	isWPressed = false;
   }
 
-  if (key == 's'){
+  if (key == 's' && key == 'S'){
   	isSPressed = false; 
   }
 

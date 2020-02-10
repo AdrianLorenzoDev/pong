@@ -112,13 +112,13 @@ setDeltaX(-cos(rad));
 
 // Incremento de la velocidad cada vez que colisiona hasta un máximo.
 if (ballSpeed < ballSpeedMax) {
-          ballSpeed += ballSpeedInc;
-        }
+  ballSpeed += ballSpeedInc;
+}
 ```
 
 ## Referencias <a id="references"></a>
 - [1] [Pong](https://es.wikipedia.org/wiki/Pong)
-- [2] [Procesing](https://processing.org)
+- [2] [Processing](https://processing.org)
 
 
 
