@@ -4,7 +4,10 @@ Pong like game using [Processing](https://processing.org).
 > **Adrián Lorenzo Melián** - *Creando Interfaces de Usuario*, [**ULPGC**](https://www.ulpgc.es).
 > adrian.lorenzo101@alu.ulpgc.es
 
-![demo](images/demo.gif "Game demo")
+<div align="center">
+ <img src=images/demo.gif alt="Game demo" />
+ Figura 1 - Demostración de la ejecución del juego
+</div>
 
 ***
 
